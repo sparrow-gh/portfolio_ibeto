@@ -1,30 +1,43 @@
 # Use the official Node.js runtime as the base image
 FROM node:18-alpine
 
+# Install system dependencies
+RUN apk add --no-cache libc6-compat
+
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package files
+COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci
 
-# Copy the rest of the application code
+# Copy source code
 COPY . .
 
 # Generate Prisma client
 RUN npx prisma generate
 
-# Build the Next.js application
+# Build the application
 RUN npm run build
 
-# Create the database directory and initialize the database
+# Create database directory
 RUN mkdir -p /app/db
+
+# Initialize database
 RUN npx prisma db push
 
-# Expose the port the app runs on
+# Remove dev dependencies
+RUN npm prune --omit=dev
+
+# Expose port
 EXPOSE 3000
 
-# Define the command to run the application
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# Start the application
 CMD ["npm", "start"]
