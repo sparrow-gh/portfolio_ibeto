@@ -16,6 +16,9 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Set build-time database URL for Prisma generation
+ENV DATABASE_URL="file:./db/dev.db"
+
 # Generate Prisma client
 RUN npx prisma generate
 
@@ -24,9 +27,6 @@ RUN npm run build
 
 # Create database directory
 RUN mkdir -p /app/db
-
-# Initialize database
-RUN npx prisma db push
 
 # Remove dev dependencies
 RUN npm prune --omit=dev
@@ -39,5 +39,5 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application with database initialization
+CMD ["sh", "-c", "npx prisma db push && npm start"]
