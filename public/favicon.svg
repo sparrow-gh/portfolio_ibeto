@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="designGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <!-- Dark mode gradient -->
+    <linearGradient id="designGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="50%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="14" fill="url(#designGradient)" opacity="0.9"/>
+  
+  <!-- Design elements -->
+  <path d="M8 12h6v2H8z" fill="white" opacity="0.9"/>
+  <path d="M8 16h8v2H8z" fill="white" opacity="0.7"/>
+  <path d="M8 20h4v2H8z" fill="white" opacity="0.5"/>
+  
+  <!-- Creative accent -->
+  <circle cx="22" cy="10" r="3" fill="white" opacity="0.8"/>
+  <circle cx="24" cy="22" r="2" fill="white" opacity="0.6"/>
+  
+  <!-- Dark mode support -->
+  <style>
+    @media (prefers-color-scheme: dark) {
+      #designGradient {
+        stop-color: #818cf8;
+      }
+      circle:first-of-type {
+        fill: url(#designGradientDark);
+      }
+    }
+  </style>
+</svg>
