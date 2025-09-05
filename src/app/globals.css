@@ -474,3 +474,273 @@ html {
     inset 0 1px 0 oklch(0.9 0.005 100 / 0.15);
   color: oklch(0.98 0.005 100);
 }
+
+/* إضافات جديدة للتحسينات البصرية */
+
+/* تأثيرات إضافية للرسوم المتحركة */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px oklch(0.7 0.15 250 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px oklch(0.7 0.15 250 / 0.6);
+  }
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes rotate-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* فئات الرسوم المتحركة الجديدة */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-text-shimmer {
+  background: linear-gradient(
+    90deg,
+    oklch(0.7 0.15 250) 0%,
+    oklch(0.85 0.12 280) 50%,
+    oklch(0.7 0.15 250) 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: text-shimmer 3s ease-in-out infinite;
+}
+
+.animate-rotate-gradient {
+  background: linear-gradient(
+    45deg,
+    oklch(0.7 0.15 250),
+    oklch(0.6 0.18 280),
+    oklch(0.75 0.12 220),
+    oklch(0.65 0.16 310)
+  );
+  background-size: 400% 400%;
+  animation: rotate-gradient 4s ease infinite;
+}
+
+/* تحسينات الأيقونات والأزرار */
+.icon-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-hover:hover {
+  transform: rotate(360deg) scale(1.1);
+}
+
+.button-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.9 0.005 100 / 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.button-glow:hover::before {
+  left: 100%;
+}
+
+/* تأثيرات النص التفاعلية */
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.7 0.15 250) 0%,
+    oklch(0.6 0.18 280) 50%,
+    oklch(0.75 0.12 220) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-glow {
+  text-shadow: 
+    0 0 10px oklch(0.7 0.15 250 / 0.5),
+    0 0 20px oklch(0.7 0.15 250 / 0.3),
+    0 0 30px oklch(0.7 0.15 250 / 0.1);
+}
+
+/* تحسينات البطاقات التفاعلية */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-3d:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+}
+
+/* تأثيرات الخلفية المتحركة */
+.bg-animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    oklch(0.11 0.015 260),
+    oklch(0.13 0.018 265),
+    oklch(0.15 0.02 270),
+    oklch(0.12 0.016 275)
+  );
+  background-size: 400% 400%;
+  animation: rotate-gradient 15s ease infinite;
+}
+
+/* تحسينات شريط التمرير */
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    oklch(0.7 0.15 250),
+    oklch(0.6 0.18 280),
+    oklch(0.75 0.12 220)
+  );
+  transform-origin: left;
+  z-index: 1000;
+}
+
+/* تأثيرات التحويم المحسنة */
+.hover-scale {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-shadow {
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 20px 40px oklch(0.05 0.01 270 / 0.4);
+}
+
+/* تحسينات المظهر العام */
+.glass-morphism {
+  background: oklch(0.13 0.018 265 / 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid oklch(0.25 0.03 275 / 0.3);
+  box-shadow: 0 8px 32px oklch(0.05 0.01 270 / 0.4);
+}
+
+/* تأثيرات الانتقال بين الأقسام */
+.section-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.7 0.15 250 / 0.5),
+    transparent
+  );
+  margin: 4rem 0;
+}
+
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 5px;
+  background: oklch(0.7 0.15 250);
+  border-radius: 50%;
+  box-shadow: 0 0 20px oklch(0.7 0.15 250 / 0.6);
+}
+
+/* تحسينات التحميل */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid oklch(0.25 0.03 275);
+  border-top: 3px solid oklch(0.7 0.15 250);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* تأثيرات خاصة للوضع المظلم */
+.dark .animate-text-shimmer {
+  background: linear-gradient(
+    90deg,
+    oklch(0.8 0.12 260) 0%,
+    oklch(0.95 0.008 280) 50%,
+    oklch(0.8 0.12 260) 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.dark .text-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.8 0.12 260) 0%,
+    oklch(0.7 0.15 280) 50%,
+    oklch(0.85 0.1 240) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.dark .text-glow {
+  text-shadow: 
+    0 0 10px oklch(0.8 0.12 260 / 0.6),
+    0 0 20px oklch(0.8 0.12 260 / 0.4),
+    0 0 30px oklch(0.8 0.12 260 / 0.2);
+}

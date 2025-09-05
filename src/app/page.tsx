@@ -9,6 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { useScrollEffects, useAdvancedAnimations, useTextAnimations } from '@/hooks/use-scroll-effects';
+import { projectsData, OptimizedImage } from '@/lib/portfolio-data';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
@@ -20,73 +22,18 @@ export default function Portfolio() {
     message: ''
   });
 
+  // استخدام التأثيرات المخصصة
+  const { scrollProgress } = useScrollEffects();
+  useAdvancedAnimations();
+  useTextAnimations();
+
   const skills = [
     'التصميم الجرافيكي', 'تصميم واجهة المستخدم', 'العلامة التجارية', 'الرسوم التوضيحية', 
     'الطباعة', 'أدوبي كريتيف سويت', 'فيجما', 'سكتش'
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: 'شعار تقني ناجح',
-      category: 'العلامة التجارية',
-      categoryKey: 'branding',
-      description: 'تصميم شعار احترافي لشركة تقنية ناشئة مع لوحة ألوان حديثة ودليل هوية بصرية كامل.',
-      image: '/my-designs/tech-logo.jpg',
-      thumbnail: '/my-designs/thumbnails/tech-logo-thumb.jpg',
-      fullImage: '/my-designs/tech-logo.jpg'
-    },
-    {
-      id: 2,
-      title: 'تطبيق لياقة بدنية',
-      category: 'تصميم واجهة المستخدم',
-      categoryKey: 'ui',
-      description: 'تصميم واجهة مستخدم لتطبيق تتبع اللياقة البدنية مع واجهة حديثة وبديهية.',
-      image: '/my-designs/fitness-app.jpg',
-      thumbnail: '/my-designs/thumbnails/fitness-app-thumb.jpg',
-      fullImage: '/my-designs/fitness-app.jpg'
-    },
-    {
-      id: 3,
-      title: 'موقع أزياء أنيق',
-      category: 'تصميم المواقع',
-      categoryKey: 'web',
-      description: 'تصميم كامل لموقع تجارة إلكترونية للأزياء مع التركيز على تجربة المستخدم وتحسين التحويلات.',
-      image: '/my-designs/fashion-website.jpg',
-      thumbnail: '/my-designs/thumbnails/fashion-website-thumb.jpg',
-      fullImage: '/my-designs/fashion-website.jpg'
-    },
-    {
-      id: 4,
-      title: 'تغليف منتجات العناية بالبشرة',
-      category: 'التغليف',
-      categoryKey: 'packaging',
-      description: 'تصميم تغليف إبداعي لمنتجات العناية بالبشرة العضوية باستخدام مواد صديقة للبيئة.',
-      image: '/my-designs/skincare-packaging.jpg',
-      thumbnail: '/my-designs/thumbnails/skincare-packaging-thumb.jpg',
-      fullImage: '/my-designs/skincare-packaging.jpg'
-    },
-    {
-      id: 5,
-      title: 'حملة تسويقية على وسائل التواصل',
-      category: 'التسويق الرقمي',
-      categoryKey: 'marketing',
-      description: 'تصميم مرئي لحملة تسويقية شاملة على وسائل التواصل الاجتماعي لعلامة أزياء.',
-      image: '/my-designs/social-media-campaign.jpg',
-      thumbnail: '/my-designs/thumbnails/social-media-campaign-thumb.jpg',
-      fullImage: '/my-designs/social-media-campaign.jpg'
-    },
-    {
-      id: 6,
-      title: 'تصميم مجلة',
-      category: 'الطباعة',
-      categoryKey: 'print',
-      description: 'تخطيط مجلة وتصميم تحريري لمنشور نمط حياة يتميز بالطباعة الحديثة.',
-      image: '/my-designs/magazine-layout.jpg',
-      thumbnail: '/my-designs/thumbnails/magazine-layout-thumb.jpg',
-      fullImage: '/my-designs/magazine-layout.jpg'
-    }
-  ];
+  // استخدام البيانات المحسنة للمشاريع
+  const projects = projectsData;
 
   const socialLinks = [
     { name: 'LinkedIn', url: '#', icon: 'in' },
@@ -143,11 +90,11 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border">
+      <nav className="fixed top-0 w-full glass-morphism backdrop-blur-sm z-50 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0">
-              <span className="text-2xl font-bold text-foreground">موقع تصاميمي</span>
+              <span className="text-2xl font-bold text-gradient animate-text-shimmer">موقع تصاميمي</span>
             </div>
             
             {/* Desktop Navigation */}
@@ -221,38 +168,52 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background to-accent/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-animated-gradient">
+        {/* إضافة شريط التقدم في التمرير */}
+        <div className="scroll-indicator" style={{ transform: `scaleX(0)` }}></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="animate-fade-in">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              مرحباً، أنا <span className="text-primary"> ايبيتو </span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              مرحباً، أنا <span className="text-gradient animate-text-shimmer"> ايبيتو </span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-up">
               مصمم جرافيك مبدع متخصص في الهوية البصرية والتجارب الرقمية والسرد المرئي
             </p>
             <Button 
               onClick={() => scrollToSection('portfolio')}
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg rounded-full transition-all duration-200 transform hover:scale-105"
+              className="button-glow animate-pulse-glow bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg rounded-full transition-all duration-200 transform hover:scale-105"
             >
               شاهد أعمالي
             </Button>
+          </div>
+          
+          {/* إضافة عنصر تفاعلي متحرك */}
+          <div className="absolute top-1/4 right-10 animate-float opacity-20 dark:opacity-10">
+            <div className="w-20 h-20 rounded-full bg-primary/30 animate-pulse-glow"></div>
+          </div>
+          <div className="absolute bottom-1/4 left-10 animate-float opacity-20 dark:opacity-10" style={{ animationDelay: '1s' }}>
+            <div className="w-16 h-16 rounded-full bg-accent/30 animate-pulse-glow"></div>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-background">
+      <section id="about" className="py-20 bg-background relative">
+        {/* فاصل قسم */}
+        <div className="section-divider"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">نبذة عني</h2>
+          <div className="text-center mb-16 animate-slide-up">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-glow">نبذة عني</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               مصمم شغوف بخبرة 5+ سنوات في إنشاء تجارب بصرية ذات معنى
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <div className="space-y-6 animate-slide-in-left">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 أنا مصمم جرافيك مبدع بشغف لتحويل الأفكار إلى قصص بصرية مؤثرة. 
                 بخبرة تزيد عن 5 سنوات في المجال، تمكنت من العمل مع عملاء متنوعين 
@@ -267,16 +228,16 @@ export default function Portfolio() {
                 <h3 className="text-xl font-semibold text-foreground mb-4">المهارات والخبرات</h3>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill, index) => (
-                    <Badge key={index} variant="secondary" className="text-sm">
+                    <Badge key={index} variant="secondary" className="text-sm hover-scale interactive-element">
                       {skill}
                     </Badge>
                   ))}
                 </div>
               </div>
             </div>
-            <div className="flex justify-center">
-              <div className="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-primary/20 to-accent/30 dark:from-primary/10 dark:to-accent/20 rounded-full flex items-center justify-center border border-border">
-                <div className="text-6xl">🎨</div>
+            <div className="flex justify-center animate-slide-in-right">
+              <div className="w-64 h-64 md:w-80 md:h-80 glass-morphism rounded-full flex items-center justify-center border border-border card-3d">
+                <div className="text-6xl animate-float">🎨</div>
               </div>
             </div>
           </div>
@@ -301,10 +262,10 @@ export default function Portfolio() {
                 <div className="relative overflow-hidden">
                   {/* Thumbnail Image */}
                   <div className="w-full h-64 relative">
-                    <img 
+                    <OptimizedImage 
                       src={project.thumbnail} 
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full"
                       loading="lazy"
                     />
                     {/* Overlay with gradient */}
@@ -324,11 +285,11 @@ export default function Portfolio() {
                           <Button 
                             variant="secondary" 
                             size="lg"
-                            className="portfolio-button opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 text-card-foreground dark:text-foreground hover:text-card-foreground"
+                            className="portfolio-button opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 button-glow"
                             onClick={() => setSelectedProject(project.id)}
                           >
                             <span className="flex items-center gap-2">
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-5 h-5 icon-hover" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                               </svg>
@@ -341,10 +302,11 @@ export default function Portfolio() {
                           <div className="space-y-6">
                             {/* Full Size Image */}
                             <div className="relative">
-                              <img 
+                              <OptimizedImage 
                                 src={project.fullImage} 
                                 alt={project.title}
-                                className="w-full h-96 object-cover rounded-lg"
+                                className="w-full h-96 rounded-lg"
+                                loading="eager"
                               />
                               <div className="absolute top-4 right-4">
                                 <Badge className={`bg-primary text-primary-foreground category-${project.categoryKey}`}>
@@ -378,18 +340,33 @@ export default function Portfolio() {
                               </div>
                               
                               {/* Additional Project Info */}
-                              <div className="grid md:grid-cols-3 gap-4 pt-4 border-t border-border">
-                                <div className="text-center">
-                                  <div className="text-2xl font-bold text-primary">100%</div>
-                                  <div className="text-sm text-muted-foreground">رضا العميل</div>
+                              <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-border">
+                                <div>
+                                  <h4 className="font-semibold text-foreground mb-3">تفاصيل المشروع</h4>
+                                  <div className="space-y-2 text-sm">
+                                    <div className="flex justify-between">
+                                      <span className="text-muted-foreground">العميل:</span>
+                                      <span className="text-foreground">{project.client || 'عميل خاص'}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-muted-foreground">السنة:</span>
+                                      <span className="text-foreground">{project.year || '2024'}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-muted-foreground">الفئة:</span>
+                                      <span className="text-foreground">{project.category}</span>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="text-center">
-                                  <div className="text-2xl font-bold text-primary">2 أسابيع</div>
-                                  <div className="text-sm text-muted-foreground">مدة التنفيذ</div>
-                                </div>
-                                <div className="text-center">
-                                  <div className="text-2xl font-bold text-primary">5+</div>
-                                  <div className="text-sm text-muted-foreground">مراجعات التصميم</div>
+                                <div>
+                                  <h4 className="font-semibold text-foreground mb-3">الأدوات المستخدمة</h4>
+                                  <div className="flex flex-wrap gap-2">
+                                    {(project.tools || ['Adobe Creative Suite', 'Figma']).map((tool, index) => (
+                                      <Badge key={index} variant="outline" className="text-xs hover-scale">
+                                        {tool}
+                                      </Badge>
+                                    ))}
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -399,8 +376,8 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </div>
-                <CardContent className="p-6 bg-card border-t border-border">
-                  <h3 className="text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors duration-200">
+                <CardContent className="p-6 bg-card border-t border-border glass-morphism">
+                  <h3 className="text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors duration-200 hover-scale">
                     {project.title}
                   </h3>
                   <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
@@ -408,15 +385,15 @@ export default function Portfolio() {
                   {/* Project Stats */}
                   <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 icon-hover" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                       </svg>
                       <span>مشروع {project.id}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors">
+                    <div className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors hover-scale interactive-element">
                       <span>عرض التفاصيل</span>
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 icon-hover" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                       </svg>
                     </div>
@@ -572,4 +549,4 @@ export default function Portfolio() {
       </footer>
     </div>
   );
-}
+}3
